@@ -1,0 +1,15 @@
+Variables in Ansible (oredered by priority)
+
+1. Command line
+# ansible-playbook play.yaml --extra-vars webserver=nginx
+
+2. Defined in play
+vars:
+ webserver: nginx
+ 
+or
+vars_file:
+ - myvars.yml
+ 
+3. Defined in Inventory
+container ansible_host=192.168.252.100 webserver=nginx

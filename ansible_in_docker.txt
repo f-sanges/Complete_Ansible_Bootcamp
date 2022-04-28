@@ -1,0 +1,9 @@
+alias ansible='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/code -w /code abdennour/ansible:2.9.6 ansible'
+ 
+alias ansible-playbook='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/code -w /code abdennour/ansible:2.9.6 ansible-playbook'
+ 
+alias ansible-inventory='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/code -w /code  abdennour/ansible:2.9.6 ansible-inventory'
+ 
+alias ansible-galaxy='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/code -w /code abdennour/ansible:2.9.6 ansible-galaxy'
+ 
+alias ansible-doc='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/code -w /code abdennour/ansible:2.9.6 ansible-doc'

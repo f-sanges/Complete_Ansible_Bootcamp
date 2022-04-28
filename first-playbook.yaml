@@ -1,0 +1,19 @@
+- name: play for file mgmt
+  hosts: container
+  tasks:
+   # create file with some content
+  - name: hello file is copied
+    copy:
+     content: "Hello There"
+     dest: /tmp/Hello.txt
+  - name: hi file is copied
+    copy:
+     content: "Hi There"
+     dest: /tmp/Hi.txt
+  - name: hh archive is created
+    archive:
+     path:
+      - /tmp/Hello.txt
+      - /tmp/Hi.txt
+     dest: /tmp/hh.zip
+     format: zip

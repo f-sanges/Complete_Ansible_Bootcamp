@@ -1,0 +1,4 @@
+# variables file
+webserver: nginx
+webserver_root_dir: /usr/share/nginx/html
+

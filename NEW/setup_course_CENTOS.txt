@@ -1,0 +1,10 @@
+CENTOS 
+
+# option 1: to install pip3
+sudo yum install --assumeyes python3-pip
+# option 2: to install pip3
+# if above command does not work, try the following:
+sudo yum install python36
+sudo yum update python-devel
+sudo yum install python36-devel
+sudo easy_install-3.6 pip

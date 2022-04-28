@@ -1,0 +1,106 @@
+# list 
+ansible-doc -l
+ansible-doc file (if I want to check the help about the module file; I can search the EXAMPLES)
+
+
+# create a directory inside the container
+
+[ansible@centos7 ~]$ ansible -i inventory container -m file -a "path=/tmp/data state=directory"
+container | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": true,
+    "gid": 1000,
+    "group": "ansibleuser",
+    "mode": "0775",
+    "owner": "ansibleuser",
+    "path": "/tmp/data",
+    "size": 6,
+    "state": "directory",
+    "uid": 1000
+}
+
+
+ls -la /tmp/data/
+total 0
+drwxrwxr-x. 2 ansibleuser ansibleuser   6 Mar  2 14:08 .
+drwxrwxrwt. 1 root        root        105 Mar  2 14:08 ..
+
+
+
+
+# If I configure the ansible.cfg with the definition of the inventory I do not need to specify "-i inventory"
+[ansible@centos7 ~]$ cat ansible.cfg
+[defaults]
+INVENTORY = ./inventory
+
+
+
+
+
+[ansible@centos7 ~]$ ansible -i inventory container -m copy -a "src=inventory dest=/home/ansibleuser"
+container | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": true,
+    "checksum": "b3a5e76daa3a96f7ed019708633dce8e1ad1d68b",
+    "dest": "/home/ansibleuser/inventory",
+    "gid": 1000,
+    "group": "ansibleuser",
+    "md5sum": "53df9ae68d6c3c5d2d898496d66734de",
+    "mode": "0664",
+    "owner": "ansibleuser",
+    "size": 129,
+    "src": "/home/ansibleuser/.ansible/tmp/ansible-tmp-1646230984.5024993-22831-229158187625395/source",
+    "state": "file",
+    "uid": 1000
+}
+
+
+[root@066fe212e1f4 ansibleuser]# ls -la
+total 20
+drwx------. 4 ansibleuser ansibleuser 128 Mar  2 14:23 .
+drwxr-xr-x. 1 root        root         25 Feb 28 23:48 ..
+drwx------. 3 ansibleuser ansibleuser  17 Mar  2 12:22 .ansible
+-rw-------. 1 ansibleuser ansibleuser  15 Mar  1 00:36 .bash_history
+-rw-r--r--. 1 ansibleuser ansibleuser  18 Aug 30  2019 .bash_logout
+-rw-r--r--. 1 ansibleuser ansibleuser 141 Aug 30  2019 .bash_profile
+-rw-r--r--. 1 ansibleuser ansibleuser 312 Aug 30  2019 .bashrc
+drwx------. 2 ansibleuser root         29 Mar  1 00:20 .ssh
+-rw-rw-r--. 1 ansibleuser ansibleuser 129 Mar  2 14:23 inventory
+
+
+
+
+ansible -i inventory container -m lineinfile -a 'path=/home/ansibleuser/inventory line="second row"'
+container | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "backup": "",
+    "changed": true,
+    "msg": "line added"
+}
+
+
+[root@066fe212e1f4 ansibleuser]# cat inventory
+container ansible_host=192.168.252.100 ansible_private_key_file=./ansibleuser ansible_ssh_user=ansibleuser ansible_ssh_port=2525
+second row
+
+
+
+# get all the github repos on github
+ansible -i inventory container -m uri -a 'url="https://api.github.com/users/fsanges/repos" dest="/home/ansibleuser/repos.json"'
+
+
+# package module to install modules (state="present" to install and state="absent" to remove)
+# requires user in sudoers in the container
+# requires --become
+ansible -i inventory container -m package -a 'name=nginx state=present' --become
+
+
+
+# syntax check
+ansible-playbook first-playbook.yaml --syntax-check

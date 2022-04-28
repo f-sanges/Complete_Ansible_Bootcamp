@@ -1,0 +1,4 @@
+ansible_host: 192.168.252.100
+ansible_ssh_user: ansibleuser
+ansible_private_key_file: /home/ansible/ansibleuser
+ansible_ssh_port: 2525

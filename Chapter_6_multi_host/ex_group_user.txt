@@ -1,0 +1,49 @@
+- Create a directory named "vars"
+
+- Create a file "users.yaml" under the "vars" directory with the following content:
+
+vars/users.yaml
+
+assignment_user_name: ahmed
+assignment_user_id: 4000
+assignment_group: developers
+   
+
+Domande per questo compito
+Create a play in a playbook file that:
+
+- targets any host from your inventory
+
+- imports "vars/users.yaml" file
+
+- Makes sure that a user (as defined in "vars/users.yaml") exists .
+
+- This user belongs to a group which is defined as variable in "vars/users.yaml"
+
+
+
+
+- hosts: all
+- vars_files:
+   vars/users.yaml
+   
+   
+   
+   
+- name: play create users var file
+  hosts: all
+  become: yes
+  vars_files:
+  - vars/users.yaml
+  tasks:
+  - name: group exists
+    group:
+      name: "{‌{ assignment_group }}"
+      state: present
+  - name: user exists
+    user:
+      name: "{‌{ assignment_user_name }}"
+      uid: "{‌{ assignment_user_id }}"
+      state: present
+      groups: "{‌{ assignment_group }}"
+      append: yes

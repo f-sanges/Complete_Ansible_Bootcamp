@@ -1,0 +1,7 @@
+- name: Play for discover gather facts task
+  hosts: container
+  # gather_facts: no # to avoid gather facts
+  tasks: 
+   - name: print ansible_facts
+     debug:
+      var: ansible_facts

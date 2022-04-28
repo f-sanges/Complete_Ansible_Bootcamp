@@ -1,0 +1,77 @@
+JSON -> YAML
+
+========================= JSON =========================
+
+{
+  "course": "Amazon EKS Course",
+  "instructor": {
+    "firstname": "Abdennour",
+    "lastname": "TOUMI",
+    "website": "http://kubernetes.tn"
+  },
+  "sections": [
+    "Introduction",
+    "Deploy EKS Cluster",
+    "Deploy App with Helm",
+    "Conclusion"
+  ],
+  "lectures": [
+    {
+      "id": 1,
+      "name": "introduction",
+      "minutes": 5
+    },
+    {
+      "id": 2,
+      "name": "EKS with Terraform",
+      "minutes": 14
+    }
+  ]
+}
+
+========================= YAML =========================
+
+--- 
+course: "Amazon EKS Course"
+instructor: 
+  firstname: Abdennour
+  lastname: TOUMI
+  website: "http://kubernetes.tn"
+lectures: 
+  - 
+    id: 1
+    minutes: 5
+    name: introduction
+  - 
+    id: 2
+    minutes: 14
+    name: "EKS with Terraform"
+sections: 
+  - Introduction
+  - "Deploy EKS Cluster"
+  - "Deploy App with Helm"
+  - Conclusion
+
+	
+
+# Course version	
+	
+---
+course: Amazon EKS Course
+instructor:
+  firstname: Abdennour
+  lastname: TOUMI
+  website: http://kubernetes.tn
+sections:
+- Introduction
+- Deploy EKS Cluster
+- Deploy App with Helm
+- Conclusion
+lectures:
+- id: 1
+  name: introduction
+  minutes: 5
+- id: 2
+  name: EKS with Terraform
+  minutes: 14
+

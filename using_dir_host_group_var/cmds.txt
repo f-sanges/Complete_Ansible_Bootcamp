@@ -1,0 +1,16 @@
+[ansible@centos7 using_dir_host_group_var]$  ansible-inventory --host container
+{
+    "ansible_host": "192.168.252.100",
+    "ansible_private_key_file": "/home/ansible/ansibleuser",
+    "ansible_ssh_port": 2525,
+    "ansible_ssh_user": "ansibleuser",
+    "git_branch": "ansible-course"
+}
+[ansible@centos7 using_dir_host_group_var]$ ansible-inventory --host container2
+{
+    "ansible_host": "192.168.252.100",
+    "ansible_private_key_file": "./ansibleuser2",
+    "ansible_ssh_port": 2626,
+    "ansible_ssh_user": "ansibleuser2",
+    "git_branch": "ansible-course"
+}

@@ -1,0 +1,14 @@
+- name: play users pwde
+  hosts: containers,other_containers
+  become: yes
+  vars_files:
+  - vars/31-users.yaml
+  tasks:
+  - name: user exists per its role
+    user:
+      name: "{{ item.name }}"
+      state: present
+      password: "{{item.password | password_hash('sha512') }}"
+    loop: "{{ assignment_users }}"
+    when: (item.role == 'developer' and 'container' in group_names) or (item.role == 'ops' and 'other_containers' in group_names)
+

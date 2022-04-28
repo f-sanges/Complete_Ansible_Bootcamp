@@ -1,0 +1,28 @@
+- hosts: container
+  become: yes  # note the become
+  vars: # note the variables
+   webserver: nginx
+   webserver_root_dir: /usr/share/nginx/html
+  tasks:
+  - name: debug
+    debug: # note the debug
+     msg: "The value of webserver is {{ webserver}}"
+  - name: webserver is installed
+    package:
+     name: "{{ webserver }}"
+     state: present
+  - name: webserver is up
+    service:
+     name: "{{ webserver }}"
+     state: started
+  - name: webserver directory exist
+    file:
+     path: "{{item}}"
+     state: directory
+    loop:
+     - /var/www/html
+     - "{{ webserver_root_dir }}"
+  - name: static website is deployed
+    uri:
+     url: https://raw.githubusercontent.com/abdennour/example-static-website/ansible-course/index.html
+     dest: "{{ webserver_root_dir }}" # /var/www/html

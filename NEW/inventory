@@ -1,0 +1,22 @@
+# hosts
+container ansible_private_key_file=./ansibleuser ansible_ssh_user=ansibleuser ansible_ssh_port=2525
+container2 ansible_private_key_file=./ansibleuser2 ansible_ssh_user=ansibleuser2 ansible_ssh_port=2626
+container3 ansible_host=192.168.252.100 ansible_private_key_file=./ansibleuser3 ansible_ssh_user=ansibleuser3 ansible_ssh_port=2727
+
+# group
+[containers]
+container
+container2
+
+[other_containers]
+container3
+
+[containers:vars]
+# removed from hosts the common variable ansible_host for container1 and container2
+# # removed from hosts the common variable ansible_host
+ansible_host=192.168.252.100
+git_branch=ansible-course
+
+[other_containers:vars]
+git_branch=ansible-course-index-v2
+

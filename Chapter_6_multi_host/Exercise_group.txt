@@ -1,0 +1,46 @@
+Let's assume we have the following inventory file :
+
+frontend1 ansible_host=192.168.10.12
+frontend2 ansible_host=192.168.10.13
+frontend3 ansible_host=192.168.10.14
+backend1 ansible_host=192.168.20.8
+backend2 ansible_host=192.168.20.9
+datbase1 ansible_host=192.168.30.5
+
+
+Domande per questo compito
+Expand the inventory to add groups as following :
+
+-  frontend group includes frontend1, frontend2 and frontend3 hosts
+
+-  backend group includes backend1 and backend2 hosts
+
+Create a play in a playbook file which targets backend group just to ping them.
+
+
+
+
+frontend1 ansible_host=192.168.10.12
+frontend2 ansible_host=192.168.10.13
+frontend3 ansible_host=192.168.10.14
+backend1 ansible_host=192.168.20.8
+backend2 ansible_host=192.168.20.9
+datbase1 ansible_host=192.168.30.5
+
+
+# frontend group
+frontend
+frontend1
+frontend2
+frontend3
+
+# backend group
+backend
+backend1
+backend2
+
+- name: play backend group ping
+  hosts: backend 
+  tasks:
+   - name: task ping
+     ping:

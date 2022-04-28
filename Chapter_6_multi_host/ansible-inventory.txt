@@ -1,0 +1,4 @@
+ansible-inventory --host <HOST>
+
+e.g.
+ansible-inventory --host container

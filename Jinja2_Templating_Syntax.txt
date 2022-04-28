@@ -1,0 +1,51 @@
+ Jinja2 Templating Syntax
+This is a summary of the main Jinja2 Blocks syntax that can be used with Ansible playbook for daily basis operations and maintenance:
+
+
+
+Print variable or Expression
+Print the variable by using the variable name surrounded by double braces.
+
+{‌{ my_var }}
+# .i.e: {‌{ ansible_distribution }}
+
+
+Filters
+Variables can be transformed/modified by filters.
+
+Think about filter as a function
+
+{‌{ my_var | my_filter }}
+# .i.e : {‌{ app_title | capitalize }}
+Read it like my_filter(my_var)
+
+
+
+If Block
+{% if CONDITION1 %}
+    blah blah blah
+{% elif CONDITION2 %}
+    blahelif blahelif blahelif .
+{% else %}
+    blahelse so far
+{% endif %}
+ 
+#.i.e
+ 
+{% if git_branch == 'master' %}
+     RELEASE: {‌{ app_version }}
+{% else %}
+    SNAPSHOT: {‌{ app_version }}-RC{‌{ build_number }} 
+{% endif %}
+
+
+For Loop
+{% for ELEMENT in ARRAY %}
+   Process {‌{ ELEMENT }}
+{% endfor %}
+ 
+#. i.e: assume that ( app_pages = ["login.html", "index.html"] )
+ 
+{% for page in app_pages %}
+   <a href="https://example.com/{‌{ page }}">{‌{ page }}</a>
+{% endfor %}

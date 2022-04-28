@@ -1,0 +1,13 @@
+- name: play create users per role
+  hosts: containers,other_containers
+  become: yes
+  vars_files:
+  - vars/users.yaml 
+  tasks:
+  - name: user exist per its role
+    user:
+     name: "{{ item.name }}"
+     state: present
+    loop: "{{ assignment_users }}" # assignment_users is in the vars/users.yaml
+    # group_names magic variable
+    when: (item.role == 'developer' and 'containers' in group_names) or (item.role == 'ops' and 'other_containers' in group_names)
